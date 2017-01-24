@@ -1,0 +1,140 @@
+﻿@using Microsoft.AspNet.Identity
+@{
+    ViewBag.Title = "CKFinder";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<style>
+    body {
+        background: url(../Images/hands_trans.png) no-repeat center center fixed;
+        background-size: cover;
+    }
+</style>
+
+<h2>Child Landing Page</h2>
+
+<div id="ckfinder-widget"></div>
+
+<!-- dirty hidden div for user name -->
+@if (Request.IsAuthenticated)
+{
+    <div id="username">@User.Identity.Name</div>
+}
+<script src="~/Scripts/jquery-3.1.1.min.js"></script>
+<script src="@Url.Content("~/CKFinderScripts/ckfinder.js")" type="text/javascript"></script>
+<div id="chosenFilename"></div>
+<div id="chosenFeeling"></div>
+<script>
+    //function setBG(image) {
+    //    console.log(image);
+    //    userpath = "../userfiles/910B72C53DF02EC5D606EA0B740926930BFD7F66/";
+    //    console.log(userpath);
+    //    console.log(userpath + image);
+    //    //document.body.style.background = "url('../Images/hands_trans.png') no-repeat center center fixed";
+    //    //document.body.style.background = "url('" + userpath + image.attributes.name + "') no-repeat center center fixed";
+    //    //var testy = "url('../userfiles/910B72C53DF02EC5D606EA0B740926930BFD7F66/hands_trans.png') no-repeat center center fixed";
+    //    //var chosenbg = "url('" + userpath + image + "') no-repeat center center fixed";
+    //    var chosenbg = "url('" + userpath + image + "') ";
+        
+    //   // var testy2 = "url('../Images/hands_trans.png') no-repeat center center fixed";
+    //    document.body.style.background = chosenbg;
+    //    console.log("chosenbg " + chosenbg);
+    //    //console.log(testy2);
+    //}
+    var swatchy;
+    // get saved swatch choice from DB
+    swatchy = @Html.Raw(Json.Encode(ViewData["swatch"]));
+    // ** initialise CKfinder **
+    CKFinder.widget('ckfinder-widget', {
+        width: '100%',
+        height: 700,
+        skin: 'jquery-mobile',
+        themeCSS: '/themes/vmem01/vmem01.css',
+        swatch: swatchy,
+    });
+    // read metadata from DB
+    function ReadMetadata() {
+        jQuery.support.cors = true;
+        $.ajax({
+            crossDomain: true,
+            type: 'GET',
+            contentType: 'application/json; charset=utf-8',
+            dataType: 'json',
+            cache: false,
+            url: '/MetaData/ReadMetadata',
+            data: { UserName: document.getElementById('username').innerText, Filename: document.getElementById('chosenFilename').innerText },
+            success: function (response) {
+                if (!response) {
+                    // do nothing if null response
+                }
+                else {
+                    // ** GET IFRAME TO LOOK FOR DIV **
+                    var CKF_iframe = document.getElementsByTagName("iframe")[0];
+                    var CKF_iframe_doc = (CKF_iframe.contentDocument) ? CKF_iframe.contentDocument : CKF_iframe.contentWindow.document;
+
+                    var feeelingDIV = CKF_iframe_doc.getElementById("txtFeeling");
+                    $(feeelingDIV).text(response.Feeling);
+                    var MetaDescDIV = CKF_iframe_doc.getElementById("txtDescription");
+                    console.log(MetaDescDIV);
+                    $(MetaDescDIV).val(response.MetadataText);
+                    // set background colour round chosen feeling image
+                    setFeeling(response.Feeling);
+                }
+            },
+            error: function (response) {
+                alert("error " + response);
+            }
+        });
+    }
+    // set feeling text and icon
+    function setFeeling(feeling) {
+        // ** GET IFRAME TO LOOK FOR DIV **
+        var CKF_iframe = document.getElementsByTagName("iframe")[0];
+        var CKF_iframe_doc = (CKF_iframe.contentDocument) ? CKF_iframe.contentDocument : CKF_iframe.contentWindow.document;
+        var HappyDIV = CKF_iframe_doc.getElementById("Happy");
+        var UnhappyDIV = CKF_iframe_doc.getElementById("Unhappy");
+        var LoveDIV = CKF_iframe_doc.getElementById("Love");
+        var AngryDIV = CKF_iframe_doc.getElementById("Angry");
+        var feeelingDIV = CKF_iframe_doc.getElementById("txtFeeling");
+
+        $(feeelingDIV).text(feeling);
+        $("#chosenFeeling").text(feeling);
+        $(HappyDIV).removeClass("chosenfeeling");
+        $(UnhappyDIV).removeClass("chosenfeeling");
+        $(LoveDIV).removeClass("chosenfeeling");
+        $(AngryDIV).removeClass("chosenfeeling");
+
+        if (feeling === 'Happy') {
+            $(HappyDIV).addClass("chosenfeeling");
+        }
+        else if (feeling === 'Unhappy') {
+            $(UnhappyDIV).addClass("chosenfeeling");
+        }
+        else if (feeling === 'Love') {
+            $(LoveDIV).addClass("chosenfeeling");
+        }
+        else if (feeling === 'Angry') {
+            $(AngryDIV).addClass("chosenfeeling");
+        }
+    }
+    // write metadata to DB
+    function WriteMetadata(fileName, newMetaD, feeling) {
+        jQuery.support.cors = true;
+        $.ajax({
+            crossDomain: true,
+            type: 'POST',
+            //dataType: 'text',
+            cache: false,
+            url: '/MetaData/UpdateMetadata',
+            data: { filename: fileName, metadata: newMetaD, feeling: feeling },
+            success: function (response) {
+                // feck knows
+                //finder.request('dialog:destroy');
+            },
+            error: function (response) {
+                alert(response);
+            }
+        });
+    }
+</script>
+
+

@@ -1,0 +1,80 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>@ViewBag.Title - Virtual Memory Box Demo</title>
+    
+    <link href="~/themes/mark1/jquery.mobile.icons.min.css" rel="stylesheet" />
+    @Styles.Render("~/Content/css")
+    @Scripts.Render("~/bundles/modernizr")
+    <link href="~/Content/fullcalendar.css" rel="stylesheet" />
+
+
+</head>
+<body>
+    <div class="navbar navbar-inverse navbar-fixed-top">
+        <div class="container">
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                @Html.ActionLink("Memory Box Demo", "Index", "Home", new { area = "" }, new { @class = "navbar-brand" })
+            </div>
+            <div class="navbar-collapse collapse">
+                <ul class="nav navbar-nav">
+                   
+                    @if (Request.IsAuthenticated)
+                    {
+                        <li><a href="~/Home/ChildStart">Home Area</a></li>
+                        <li><a href="~/Home/Diary">Diary</a></li>
+                        <li><a href="~/Home/Theme">Change Theme</a></li>
+                    }
+                </ul>
+                @Html.Partial("_LoginPartial")
+            </div>
+        </div>
+    </div>
+
+    <div class="container body-content">
+        @RenderBody()
+        @*<hr />
+        <footer>
+            <p>&copy; @DateTime.Now.Year - Virtual Memory Box Demo</p>
+        </footer>*@
+    </div>
+
+    @Scripts.Render("~/bundles/jquery")
+    @Scripts.Render("~/bundles/bootstrap")
+    @RenderSection("scripts", required: false)
+    <script src="~/Scripts/moment.min.js"></script>
+    <script src="~/Scripts/moment-with-locales.min.js"></script>
+
+    <script src="~/Scripts/bootstrap-datetimepicker.min.js"></script>
+    <script src="~/Scripts/fullcalendar.min.js"></script>
+
+    <script src="~/Scripts/mark.js"></script>
+
+    <!-- Success Modal -->
+    <div class="modal fade" id="SuccessModal" tabindex="-1" role="dialog" aria-labelledby="SuccessModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header modalSuccessHeader">
+                    <h4 class="modal-title" id="SuccessModalLabel">Success</h4>
+                </div>
+                <div class="modal-body" style="font-weight:bold;">
+                    <div id="SuccessModalBody"></div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-warning" style="margin-top:5px;" data-dismiss="modal">Close</button>
+                </div>
+            </div>
+            <!-- /.modal-content -->
+        </div>
+        <!-- /.modal-dialog -->
+    </div>
+    <!-- /.modal -->
+</body>
+</html>

@@ -1,0 +1,77 @@
+﻿
+@{
+    ViewBag.Title = "Diary";
+}
+@*<link href="~/Content/fullcalendar.css" rel="stylesheet" />
+    <script src="~/Scripts/jquery-3.1.1.min.js"></script>
+    <script src="~/Scripts/moment.min.js"></script>
+    <script src="~/Scripts/fullcalendar.min.js"></script>*@
+<link href="~/themes/start/jquery-ui.theme.css" rel="stylesheet" />
+<script src="~/Scripts/jquery-3.1.1.min.js"></script>
+<script src="~/Scripts/ckeditor/ckeditor.js"></script>
+<script src="@Url.Content("~/CKFinderScripts/ckfinder.js")" type="text/javascript"></script>
+<h2>Diary</h2>
+<div id='calendar'></div>
+
+
+<!-- /.modal -->
+<div class="modal fade" id="CreateDiaryModal" tabindex="-1" role="dialog" data-backdrop="static" data-keyboard="false" aria-labelledby="CreateDiaryModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header modalSuccessHeader">
+                <h4 class="modal-title" id="CreateDiaryModalLabel"></h4>
+            </div>
+            <div class="modal-body" style="font-weight:bold;">
+
+                <input type="text" class="form-control" placeholder="Entry title" style="max-width:100%" id="txtEntryTitle" />
+                <input type="text" class="form-control" style="max-width:100%; display:none" id="txtEntryDate" />
+                <form>
+                    <textarea class="form-control" name="editor1" id="editor1" rows="5" style="max-width:100%"></textarea>
+                </form>
+                <div class="btn-group" role="group" aria-label="feeling">
+                    <img id="Happy" src="~/Images/happy_smiley.png" title="happy or cheerful" type="button" style="width: 64px;cursor: pointer;">
+                    <img id="Unhappy" src="~/Images/sad_smiley.png" title="sad or unhappy" type="button" style="width: 64px;cursor: pointer;">
+                    <img id="Love" src="~/Images/love_smiley.png" title="affection or love" type="button" style="width: 64px;cursor: pointer;">
+                    <img id="Angry" src="~/Images/angry_smiley.png" title="angry or aggressive" type="button" style="width: 64px;cursor: pointer;">
+                </div>
+                <input class="form-control" type="text" width="250" id="txtFeeling" />
+
+            </div>
+            <div class="modal-footer">
+                <button id="closebtn" type="button" class="btn btn-warning" style="margin-top:5px;" data-dismiss="modal">Close</button>
+                <button class="btn btn-primary" id="btnCreateCalendar">Save Diary Entry</button>
+            </div>
+        </div>
+        <!-- /.modal-content -->
+    </div>
+    <!-- /.modal-dialog -->
+</div>
+<!-- /.modal -->
+<style type="text/css">
+    .cke_textarea_inline {
+        border: 1px solid #ccc;
+        padding: 5px;
+        min-height: 150px;
+    }
+</style>
+
+    @*<textarea name="editor1" id="editor1" rows="10" cols="80">
+        This is my textarea to be replaced with CKEditor.
+    </textarea>*@
+    @*<script>
+
+        $("#subbtn").click(function () {
+            var ckdata = CKEDITOR.instances.editor1.getData();
+            alert(ckdata);
+            var title = $('#txtEntryTitle').val();
+            var comment = ckdata;
+            var feeling = $('#txtFeeling').val();
+            //var savedate = moment(diaryDate).format('DD-MM-YYYY')
+            var savedate = $('#txtEntryDate').val();
+            console.log("2" + savedate + savedate + title + comment + feeling + isEntryNew);
+            //var ckdata = CKEDITOR.instances.editor1.getData();
+            alert(comment);
+            saveDiaryEntry(savedate, savedate, title, comment, feeling, isEntryNew);
+        });
+
+    </script>*@

@@ -1,0 +1,37 @@
+﻿html {
+    font-size: 100%;
+}
+body,
+input,
+select,
+textarea,
+button,
+.ui-btn {
+    font-size: 1em;
+    line-height: 1.3;
+    font-family: Arial, Helvetica, Tahoma, Verdana, sans-serif;
+}
+
+/* Icons */
+.ui-btn-icon-left:after,
+.ui-btn-icon-right:after,
+.ui-btn-icon-top:after,
+.ui-btn-icon-bottom:after,
+.ui-btn-icon-notext:after {
+    background-position: center center;
+    background-repeat: no-repeat;
+}
+
+/* Tweaks */
+.ckf-folders-panel .ui-listview > li.ui-first-child > a.ui-btn {
+    border-top: 1px solid transparent;
+}
+.ckf-folders-panel .ui-listview > li.ui-first-child > a.ckf-folders-tree-expander {
+    border-bottom-width:0;
+    margin-top:0;
+}
+.ckf-folders-panel .ckf-panel-contents {
+    border-width: 0 1px 0 0;
+    border-style: solid;
+    margin-top:1px;
+}

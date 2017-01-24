@@ -1,0 +1,76 @@
+﻿body {
+    background: url(../Images/paint_1_trans.png) no-repeat center center fixed;
+    background-size: cover;
+    /*-moz-background-size: cover;
+  -o-background-size: cover;
+  -webkit-background-size: cover;*/
+}
+
+#topSpacer {
+    margin-top: 55%;
+}
+
+.wrapper {
+    position: absolute;
+    left: 50px;
+}
+
+
+/*dropzone*/
+/*#dropZone {
+        background: gray;
+        border: black dashed 3px;
+        width: 200px;
+        padding: 50px;
+        text-align: center;
+        color: white;
+    }*/
+.galleria {
+    width: 700px;
+    height: 400px;
+    background: #000;
+    margin-top: 50px;
+}
+
+.smileys {
+    width: 64px;
+    cursor: pointer;
+    background-color: black;
+}
+
+.smileys_active {
+    background-color: peachpuff;
+}
+
+.chosenfeeling {
+    background-color: #eaf2a5;
+    border-radius:12px;
+}
+
+#editor6 {
+    width: auto;
+    min-height: 400px;
+    background-repeat: no-repeat;
+    background-size: contain;
+    /*background-image: url(../../Images/background-texture-of-old-parchment-grungy-paper-494x384.jpg);*/
+}
+
+    #editor6 img {
+        opacity: 0.5;
+    }
+
+.modalSuccessHeader {
+    background-color: #31921b;
+    background-image: linear-gradient(#61dd45, #3cb521 50%, #36a41e);
+    color: white;
+    font-size: 18px;
+    font-weight: bold;
+}
+.themeImage {
+    margin-bottom:10px;
+    cursor:pointer;
+}
+.chosenfeeling {
+    background-color: rgba(242, 246, 163, 0.75);
+    border-radius:12px;
+}
